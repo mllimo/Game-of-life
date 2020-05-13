@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guijarro Contreras Antonio Raúl</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../style/life.css"/>
+    <script type="module" src="../scripts/main-life.js" defer></script>
+  </head>
+  <body>
+
+    <h1 id="title">GAME OF LIFE</h1>
+
+    <div id="simulation-container">
+      <div id="game-interface">
+        <button class="button option"name="button" id="start-game">START</button>
+        <button class="button option"name="button" id="end-game">END</button>
+        <button class="button option"name="button" id="pause-game">PAUSE</button>
+        <button class="button option"name="button" id="nextSep-game">NEXT STEP</button>
+
+        <label>CELLS NUMBER<br><input type="number" value=10 id="cellsNumber" min="0" max="10000"/></label>
+
+        <div id="slider-container">
+          <label>SPEED</label>
+          <br>
+          <input id="speed" class="slider" type="range" name="participants" min="1" max="100" value="1">
+        </div>
+
+      </div>
+      
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <footer>
+      <p><b>Author: </b> Antonio Raúl Guijarro Contreras</p> 
+      <p><b>Email: </b> alu0101100494@ull.edu.es</p>
+      <p><b>University: </b> Universidad de La Laguna</p>
+      <p><b>Subject: </b> Interactive application programming</p>
+    </footer>
+
+  </body>
+</html>

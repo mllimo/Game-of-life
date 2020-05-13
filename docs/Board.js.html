@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Board.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Board.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @author Antonio Raúl Guijarro Contreras &lt;alu0101100494@ull.edu.es>
+ * @file Declaración de la clase Rectangle. hereda de Shape y simboliza la forma de un rectángulo
+ * @copyright Antonio Raúl Guijarro Contreras 2020
+ * @since 01.05.2020
+ */
+
+'use stric'
+
+import Box from './Box.js';
+import Point from './Point.js';
+
+/** 
+* Clase Board. Representa un tablero. Cada ranura del tablero es un Box.
+*/
+class Board {
+
+  /**
+   * Constructor de la clase Board
+   * @param {Number} horizontalBoxes Número de cajas horizontales
+   * @param {Number} verticalBoxes Número de cajas verticales
+   */
+  constructor(horizontalBoxes, verticalBoxes) {
+    this.width = 0;
+    this.height = 0;
+    this.horizontalBoxes = horizontalBoxes;
+    this.verticalBoxes = verticalBoxes;
+    this.elements = [];
+  }
+
+  /**
+   * Construye el tablero.
+   * @param {Number} width Ancho del tablero
+   * @param {Number} height Alto del tablero
+   * @param {Array} pattern Array de colores en formato CSS. Se imprimirán en orden ciclico.
+   * @param {Number} horizontalBoxes Número de cajas horizontales
+   * @param {Number} verticalBoxes Número de cajas verticales
+   */
+  build(width, height, pattern = ['red', 'blue'], horizontalBoxes = this.horizontalBoxes, verticalBoxes = this.verticalBoxes) {
+    this.width = width / horizontalBoxes;
+    this.height = height / verticalBoxes;
+    let index = 0;
+
+    for (let i = 0; i &lt; this.verticalBoxes; i++) {
+      for (let j = 0; j &lt; this.horizontalBoxes; j++) {
+        let auxBox = new Box('unknown', null,
+                  new Point(this.width * (j), this.height * i),
+                  this.width, this.height);
+        if (index >= pattern.length) {
+          index = 0;
+        }
+        auxBox.fillStyle = pattern[index++];
+        auxBox.strokeStyle = '#413061';
+        auxBox.strokeWidth = 3;
+        this.elements.push(auxBox);
+      }
+    }
+  }
+
+  /**
+   * @param {Array} standarPatern Array de colores CSS. En base a los colores dados hace un patrón: 
+   * color1 color2 color3 ... colorN en bucle hasta completar el tamaño horizontal del tablero. Después,
+   * inserta el mismo patrón que el anterior pero invertido.
+   * @return {Array} Array de colores CSS
+   */
+  makeAsimetricPatern(standarPatern) {
+    let patern = [];
+    let index = 0;
+    let last;
+  
+    // Caso simétrico
+    for (let i = 0; i &lt; this.horizontalBoxes; i++) {
+      if (index >= standarPatern.length) index = 0;
+      patern.push(standarPatern[index++]);
+    }
+    last = patern.length - 1;
+    index = last;
+    // Caso asimétrico
+    if (this.verticalBoxes % 2 != 0 &amp;&amp; this.horizontalBoxes % 2 != 0) index--;               // Si es un tablero cuadrático impar
+    for (let i = 0; i &lt; this.horizontalBoxes; i++) {
+      if (index &lt; 0) {
+        if (this.verticalBoxes % 2 != 0 &amp;&amp; this.horizontalBoxes % 2 != 0) index = last - 1;  // Si es un tablero cuadrático impar
+      }
+      patern.push(patern[index--]);
+    }
+    return patern;
+  }
+
+  /**
+   * Introduce elementos importables mediante un json
+   * @param {String} src Ruta de fichero JSON para insertar elementos imagen
+   * a sus cajas correspondientes
+   */
+  importElements(json) {
+    for (const key in json) {
+      this.elements[json[key].pos].id = key;
+      this.elements[json[key].pos].element = new Image();
+      this.elements[json[key].pos].element.src = json[key].src;
+    }
+  }
+
+  /**
+   * Inserta un elemento dentro de una posición del tablero.
+   * @param {Number} colum Columna del tablero
+   * @param {Number} row Fila del tablero
+   * @param {*} element Elemento a insertar
+   */
+  setElement(row, colum, element) {
+    this.elements[this.translate(row, colum)].element = element;
+  }
+
+  /**
+   * Traduce coordenadas bidimensionales a unisimensionales
+   * @param {Number} column Columna del tablero
+   * @param {Number} row Fila del tablero
+   * @return {Number} Indice mapeado en el array
+   */
+  translate(row, column) {
+    return (Math.round(this.horizontalBoxes) * row ) + column;
+  }
+
+  /* istanbul ignore next   */
+  /**
+   * Se encarga de dibujar la figura que representa la clase
+   * @param {Context} ctx Contexto del canvas, preferiblemente '2d'
+   */
+  draw(ctx) {
+    if (ctx != null) {
+      for (let element of this.elements) {
+        element.draw(ctx);
+      }
+    }
+  }
+
+}
+
+export default Board;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-CanvasUtility.html">CanvasUtility</a></li><li><a href="module-life-main.html">life-main</a></li></ul><h3>Classes</h3><ul><li><a href="Board.html">Board</a></li><li><a href="Box.html">Box</a></li><li><a href="Cell.html">Cell</a></li><li><a href="Layers.html">Layers</a></li><li><a href="Line.html">Line</a></li><li><a href="Point.html">Point</a></li><li><a href="Rectangle.html">Rectangle</a></li><li><a href="Shape.html">Shape</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Sun May 10 2020 01:18:31 GMT+0100 (Western European Summer Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

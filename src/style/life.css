@@ -1,0 +1,99 @@
+
+body {
+  background: #111;
+  font-family: 'Anton', sans-serif;
+  color: rgb(219, 219, 219);
+}
+
+#title {
+  text-align: center;
+  font-size: 5em;
+  letter-spacing: 0.15em;
+}
+
+#simulation-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-bottom: 3em;
+}
+
+#canvas {
+  height: 70vh;
+  width: 90vw;
+  align-self: center;
+  border: 3px solid #F012BE;
+}
+
+#game-interface {
+  display: flex;
+  justify-content: space-evenly;
+  padding-bottom: 3em;
+}
+
+footer {
+  display: flex;
+  position: fixed; 
+  justify-content: space-around;
+  background: rgb(44, 44, 44);
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.4em;
+  width: 98.3vw;
+  height: 8vh;
+
+  /* Insertarlo en la parte de abajo de la página*/
+  position: absolute;
+  text-align: center;
+  align-items: center;
+
+}
+
+footer > p b{
+  display: flex;
+  align-items: center;
+}
+
+.button {
+  display: inline-block;
+  background-color: rgb(37, 37, 37); /* Green */
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1em;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.option {
+  border-radius: 5px;
+  font-size: 1.3em;
+  width: 10vw;
+}
+
+.slider {
+  -webkit-appearance: none; 
+  align-self: center;
+  height: 1em;
+  width: 15vw;
+  color: #F012BE;
+}
+
+.button:hover {
+  background-color: rgb(172, 172, 172); /* Green */
+  color: white;
+}
+
+label {
+  display: inline;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+#cellsNumber {
+  font-size: 1em;
+  text-align: center;
+}
